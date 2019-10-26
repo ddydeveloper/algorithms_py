@@ -12,11 +12,11 @@ class Queue:
     def __init__(self, size):
         self.top = Node(None)
         self.first = None
-        self.count = 0
+        self.items_count = 0
         self.size = size
 
     def enqueue(self, value):
-        if self.count == self.size:
+        if self.items_count == self.size:
             raise OverflowError()
 
         node_to_enqueue = Node(value)
@@ -30,7 +30,7 @@ class Queue:
             self.top.next_node.prev_node = node_to_enqueue
             self.top.next_node = node_to_enqueue
 
-        self.count += 1
+        self.items_count += 1
 
     def dequeue(self):
         if not self.first:
@@ -45,12 +45,12 @@ class Queue:
             self.first = self.first.prev_node
             self.first.next_node = None
 
-        self.count -= 1
+        self.items_count -= 1
 
         return value
 
     def count(self):
-        return self.count
+        return self.items_count
 
     def peek(self):
         if not self.first:
@@ -59,6 +59,6 @@ class Queue:
         return self.first.value
 
     def clear(self):
-        self.count = 0
+        self.items_count = 0
         self.first = None
         self.top.next_node = None
