@@ -25,10 +25,11 @@ class Queue:
             node_to_enqueue.prev_node = self.top
             self.top.next_node = node_to_enqueue
             self.first = node_to_enqueue
+        else:
+            node_to_enqueue.next_node = self.top.next_node
+            self.top.next_node.prev_node = node_to_enqueue
+            self.top.next_node = node_to_enqueue
 
-        node_to_enqueue.next_node = self.top.next_node
-        self.top.next_node.prev_node = node_to_enqueue
-        self.top.next_node = node_to_enqueue
         self.count += 1
 
     def dequeue(self):
