@@ -4,6 +4,12 @@ class Array:
         self.length = 0
         self.size = size
 
+    def __str__(self):
+        return "[" + ", ".join(map(str, self.data[:self.length])) + "]"
+
+    def __len__(self):
+        return self.length
+
     def append(self, value):
         if self.length == self.size:
             raise OverflowError
@@ -156,12 +162,6 @@ class Array:
 
     def is_last_item(self, idx):
         return idx == self.length - 1
-
-    def __str__(self):
-        return "[" + ", ".join(map(str, self.data[:self.length])) + "]"
-
-    def __len__(self):
-        return self.length
 
 
 def merge(array1, array2):
