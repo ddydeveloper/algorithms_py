@@ -1,6 +1,5 @@
 import unittest
-
-from src.algorithms.sort import bubble_sort
+from src.algorithms.sort import bubble_sort, quick_sort, merge_sort
 
 
 class TestArray(unittest.TestCase):
@@ -13,6 +12,30 @@ class TestArray(unittest.TestCase):
         self.assertTrue(array[3] == 7)
         self.assertTrue(array[4] == 5)
         self.assertTrue(array[5] == 2)
+
+    def test_quick_sort(self):
+        array = [7, 5, 0, 1, -5, 8, 0, -4]
+        quick_sort(array, 0, len(array) - 1)
+        self.assertTrue(array[0] == -5)
+        self.assertTrue(array[1] == -4)
+        self.assertTrue(array[2] == 0)
+        self.assertTrue(array[3] == 0)
+        self.assertTrue(array[4] == 1)
+        self.assertTrue(array[5] == 5)
+        self.assertTrue(array[6] == 7)
+        self.assertTrue(array[7] == 8)
+
+    def test_merge_sort(self):
+        array = [7, 5, 0, 1, -5, 8, 0, -4]
+        merge_sort(array)
+        self.assertTrue(array[0] == -5)
+        self.assertTrue(array[1] == -4)
+        self.assertTrue(array[2] == 0)
+        self.assertTrue(array[3] == 0)
+        self.assertTrue(array[4] == 1)
+        self.assertTrue(array[5] == 5)
+        self.assertTrue(array[6] == 7)
+        self.assertTrue(array[7] == 8)
 
 
 if __name__ == '__main__':
