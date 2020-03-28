@@ -1,10 +1,10 @@
-from src.data_structures.array import Array
-from src.data_structures.node import Node
+from src.data_structures.custom_array import CustomArray
+from src.data_structures.custom_node import CustomNode
 
 
-class StackArrayBased(Array):
+class StackArrayBased(CustomArray):
     def __init__(self, size):
-        self.array = Array(size)
+        self.array = CustomArray(size)
         self.top = -1
         self.size = size
 
@@ -35,7 +35,7 @@ class StackArrayBased(Array):
 
 class StackNodeBased:
     def __init__(self):
-        self.top = Node(None)
+        self.top = CustomNode(None)
         self._count = 0
 
     def pop(self):
@@ -59,13 +59,13 @@ class StackNodeBased:
         self.top.next_node = None
 
     def push(self, value):
-        new_node = Node(value)
+        new_node = CustomNode(value)
         new_node.next_node = self.top.next_node
         self.top.next_node = new_node
         self._count += 1
 
 
-class Stack2Side(Array):
+class Stack2Side(CustomArray):
     def __init__(self, size):
         super().__init__(size)
         self.left = -1

@@ -1,4 +1,4 @@
-class Array:
+class CustomArray:
     def __init__(self, size):
         self.data = [None] * size
         self.length = 0

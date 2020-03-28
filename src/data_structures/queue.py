@@ -1,8 +1,8 @@
-from src.data_structures.array import Array
-from src.data_structures.node import Node
+from src.data_structures.custom_array import CustomArray
+from src.data_structures.custom_node import CustomNode
 
 
-class QueueArrayBased(Array):
+class QueueArrayBased(CustomArray):
     def __init__(self, size):
         super().__init__(size)
         self.first = None
@@ -52,7 +52,7 @@ class QueueArrayBased(Array):
 
 class QueueNodeBased:
     def __init__(self, size):
-        self.top = Node(None)
+        self.top = CustomNode(None)
         self.first = None
         self.items_count = 0
         self.size = size
@@ -61,7 +61,7 @@ class QueueNodeBased:
         if self.items_count == self.size:
             raise OverflowError()
 
-        node_to_enqueue = Node(value)
+        node_to_enqueue = CustomNode(value)
 
         if not self.top.next_node:
             node_to_enqueue.prev_node = self.top

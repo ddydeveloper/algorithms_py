@@ -4,7 +4,7 @@ from src.algorithms.sort import bubble_sort
 
 
 class TestArray(unittest.TestCase):
-    def bubble_sort(self):
+    def test_bubble_sort(self):
         array = [13, 7, 8, 2, 11, 5]
         bubble_sort(array)
         self.assertTrue(array[0] == 13)

@@ -51,7 +51,21 @@ def do_merge_sort(array, temp_array, start, end):
         array[i] = temp_array[i]
 
 
-arr = [3, 2, 6, 1, 8, 4, 1, 5, 3, 0, 12]
-merge_sort(arr)
-print(arr)
+def counting_sort(array):
+    negative_values = [i for i in array if i < 0]
+    if len(negative_values) == 0:
+        min_value = 0
+    else:
+        min_value = min(array)
 
+    max_value = max(array)
+    counts = [0] * (max_value - min_value + 1)
+
+    for value in array:
+        counts[value] += 1
+
+    index = 0
+    for i in range(min_value, max_value + 1):
+        for j in range(0, counts[i]):
+            array[index] = i
+            index += 1
