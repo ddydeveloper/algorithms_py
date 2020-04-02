@@ -1,5 +1,5 @@
 import unittest
-from src.algorithms.sort import bubble_sort, quick_sort, merge_sort
+from src.algorithms.sort import bubble_sort, quick_sort, merge_sort, stack_based_quick_sort
 
 
 class TestArray(unittest.TestCase):
@@ -15,7 +15,19 @@ class TestArray(unittest.TestCase):
 
     def test_quick_sort(self):
         array = [7, 5, 0, 1, -5, 8, 0, -4]
-        quick_sort(array, 0, len(array) - 1)
+        quick_sort(array)
+        self.assertTrue(array[0] == -5)
+        self.assertTrue(array[1] == -4)
+        self.assertTrue(array[2] == 0)
+        self.assertTrue(array[3] == 0)
+        self.assertTrue(array[4] == 1)
+        self.assertTrue(array[5] == 5)
+        self.assertTrue(array[6] == 7)
+        self.assertTrue(array[7] == 8)
+
+    def test_stack_based_quick_sort(self):
+        array = [7, 5, 0, 1, -5, 8, 0, -4]
+        stack_based_quick_sort(array)
         self.assertTrue(array[0] == -5)
         self.assertTrue(array[1] == -4)
         self.assertTrue(array[2] == 0)

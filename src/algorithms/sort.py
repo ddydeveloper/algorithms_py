@@ -1,3 +1,6 @@
+from src.data_structures.stack import Stack2Side
+
+
 def bubble_sort(array):
     is_sorted = False
 
@@ -71,7 +74,11 @@ def do_merge_sort(array, temp_array, start, end):
         array[i] = temp_array[i]
 
 
-def quick_sort(array, start, end):
+def quick_sort(array):
+    do_quick_sort(array, 0, len(array) - 1)
+
+
+def do_quick_sort(array, start, end):
     if start >= end:
         return
 
@@ -105,5 +112,51 @@ def quick_sort(array, start, end):
         array[i] = right.pop()
         i += 1
 
-    quick_sort(array, start, mid_point_idx - 1)
-    quick_sort(array, mid_point_idx + 1, end)
+    do_quick_sort(array, start, mid_point_idx - 1)
+    do_quick_sort(array, mid_point_idx + 1, end)
+
+
+def stack_based_quick_sort(array):
+    stack = Stack2Side(len(array))
+    do_stack_based_quick_sort(array, stack, 0, len(array) - 1)
+
+
+def do_stack_based_quick_sort(array, stack, start, end):
+    if start >= end:
+        return
+
+    divider = array[start]
+
+    i = start + 1
+    before_count = 0
+    after_count = 0
+
+    while i < end + 1:
+        if array[i] < divider:
+            stack.push_left(array[i])
+            before_count += 1
+        else:
+            stack.push_right(array[i])
+            after_count += 1
+        i += 1
+
+    index = start
+    while before_count > 0:
+        array[index] = stack.pop_left()
+        index += 1
+        before_count -= 1
+
+    array[index] = divider
+
+    midpoint = index
+
+    index += 1
+    while after_count > 0:
+        array[index] = stack.pop_right()
+        index += 1
+        after_count -= 1
+
+    stack.clear()
+
+    do_stack_based_quick_sort(array, stack, start, midpoint - 1)
+    do_stack_based_quick_sort(array, stack, midpoint + 1, end)
