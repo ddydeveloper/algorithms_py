@@ -1,6 +1,6 @@
 import unittest
 
-from src.algorithms.hash_table import HashTable
+from src.algorithms.hash_table_linked_list import HashTable
 
 
 class TestArray(unittest.TestCase):
