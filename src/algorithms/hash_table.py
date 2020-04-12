@@ -1,6 +1,8 @@
+from random import randint
+
 # Structure to keep hash key value pair
 class HashItem:
-    def __init__(self, key, value):
+    def __init__(self, key=None, value=None):
         self.key = key
         self.value = value
 
@@ -15,43 +17,46 @@ class HashItem:
 class HashTable:
     def __init__(self, size):
         self._size = size
-        self._buckets = [HashItem(None, None) * self._size]
+        self._buckets = [HashItem(None, None) for i in range(size)]
 
         self._items_count = 0
         self._prime_number = 7
 
+    def walk_through(self, action):
+        for item_idx, current_hash_item in enumerate(self._buckets):
+            action(item_idx, current_hash_item)
+
     def insert(self, key, value):
-        if self._items_count / self._size < 0.7:
+        if self._items_count > 0 and self._items_count / self._size > 0.7:
             self.__resize(self._size * 2)
 
-        hash_item, item_idx = self.get(key)
+        item_idx, duplicate_key = self.__get_free_idx(key)
 
-        if hash_item.key is not None:
-            raise ValueError(f"Key {key} is already exists in a hash table")
-
-        item_idx, = self.__get_free_idx(key)
-
-        if item_idx is None:
+        if item_idx == -1:
             raise ValueError(f"Key {key} can't be added to a hash table")
 
+        if duplicate_key:
+            raise ValueError(f"Key {key} already exists in a hash table")
+
         self._buckets[item_idx] = HashItem(key, value)
+        self._items_count += 1
 
     def delete(self, key):
-        hash_item, item_idx = self.get(key)
+        item_idx, hash_item_value = self.__get_hash_item(key)
 
-        if hash_item.key is None:
+        if item_idx == -1:
             return
 
         self._buckets[item_idx].key = None
         self._buckets[item_idx].value = None
 
-    def has_key(self, key):
-        return self.get(key).key is not None
+    def key_exists(self, key):
+        item_idx, hash_item_value = self.__get_hash_item(key)
+        return item_idx != -1
 
-    def get(self, key):
-        # count hash
-        # looks for value in loop
-        return HashItem(1, 1), 1
+    def value(self, key):
+        item_idx, hash_item_value = self.__get_hash_item(key)
+        return hash_item_value
 
     def __resize(self, size):
         self._size = size
@@ -60,7 +65,7 @@ class HashTable:
     def __rehash(self):
         buckets = self._buckets
 
-        self._buckets = [HashItem(None, None) * self._size]
+        self._buckets = [HashItem(None, None) for i in range(self._size)]
         self._items_count = 0
 
         for bucket in buckets:
@@ -69,18 +74,36 @@ class HashTable:
 
             self.insert(bucket.key, bucket.value)
 
-    def __get_free_idx(self, key):
+    def __get_hash_item(self, key):
         step = 1
 
-        while self._size > step:
+        while self._size >= step:
             item_idx = self.__get_hash(key, step)
+            current_hash_item = self._buckets[item_idx]
 
-            if self._buckets[item_idx].is_empty():
-                return item_idx, step
+            if not current_hash_item.is_empty():
+                return item_idx, current_hash_item.value
 
             step += 1
 
-        return None, step
+        return -1, None
+
+    def __get_free_idx(self, key):
+        step = 1
+        duplicate_key = False
+
+        while self._size >= step:
+            item_idx = self.__get_hash(key, step)
+            current_hash_item = self._buckets[item_idx]
+
+            if current_hash_item.is_empty():
+                return item_idx, duplicate_key
+            else:
+                duplicate_key = current_hash_item.key == key
+
+            step += 1
+
+        return -1, duplicate_key
 
     def __get_hash(self, key, step):
         return (self.__get_init_hash(key) + step * self.__get_double_hash(key)) % self._size
@@ -90,3 +113,24 @@ class HashTable:
 
     def __get_double_hash(self, key):
         return self._prime_number - (key % self._prime_number)
+
+
+hash_table = HashTable(11)
+
+keys = []
+
+for i in range(1, 200000):
+    rand_key = randint(1000, 500000)
+
+    if rand_key in keys:
+        continue
+
+    keys.append(rand_key)
+    hash_table.insert(rand_key, f"item {rand_key}")
+
+
+def print_item(hash_idx, hash_item):
+    print(f"{hash_idx} - {str(hash_item)}")
+
+
+hash_table.walk_through(print_item)
