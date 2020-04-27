@@ -1,4 +1,4 @@
-from src.data_structures.stack import Stack2Side
+from src.data_structures.c_stack import Stack2Side
 
 
 def bubble_sort(array):

@@ -1,5 +1,5 @@
 import unittest
-from src.data_structures.stack import StackNodeBased, Stack2Side, StackArrayBased
+from src.data_structures.c_stack import StackNodeBased, Stack2Side, StackArrayBased
 
 
 class TestStack(unittest.TestCase):

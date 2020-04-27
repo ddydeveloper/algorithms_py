@@ -1,5 +1,5 @@
 import unittest
-from src.data_structures.custom_array import CustomArray, merge
+from src.data_structures.c_array import CustomArray, merge
 
 
 class TestArray(unittest.TestCase):

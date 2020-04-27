@@ -1,5 +1,5 @@
 import unittest
-from src.data_structures.queue import QueueArrayBased, QueueNodeBased
+from src.data_structures.c_queue import QueueArrayBased, QueueNodeBased
 
 
 class TestQueue(unittest.TestCase):

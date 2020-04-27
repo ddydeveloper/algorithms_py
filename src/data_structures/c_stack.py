@@ -1,5 +1,5 @@
-from src.data_structures.custom_array import CustomArray
-from src.data_structures.custom_node import CustomNode
+from src.data_structures.c_array import CustomArray
+from src.data_structures.c_node import CustomNode
 
 
 class StackArrayBased(CustomArray):
