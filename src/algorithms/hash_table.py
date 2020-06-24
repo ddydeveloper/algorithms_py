@@ -1,5 +1,6 @@
 from random import randint
 
+
 # Structure to keep hash key value pair
 class HashItem:
     def __init__(self, key=None, value=None):
@@ -17,7 +18,7 @@ class HashItem:
 class HashTable:
     def __init__(self, size):
         self._size = size
-        self._buckets = [HashItem(None, None) for i in range(size)]
+        self._buckets = [HashItem(None, None) for _ in range(size)]
 
         self._items_count = 0
         self._prime_number = 7
